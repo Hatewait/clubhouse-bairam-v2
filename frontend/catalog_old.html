@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title></title>
+
+  <link rel="stylesheet" type="text/css" href="assets/css/libs/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/libs/graph-modal/graph-modal.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/libs/fancybox/fancybox.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/libs/flatpickr/flatpickr.min.css" />
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/date-range.css">
+  <link rel="stylesheet" href="assets/css/dropdown.css">
+</head>
+<body>
+
+<header class="header space-xxxl">
+  <div class="header__wrapper header__wrapper_inner" data-header="">
+    <div class="container header__container">
+      <a href="index.html" class="header__logo-wrap">
+        <img src="assets/img/logo-old.svg" alt="logo">
+      </a>
+
+      <ul class="header__nav" data-da=".js-insert-nav,1719">
+        <li>
+          <a href="#" class="color-white link-md-light link-decor">Форматы отдыха</a>
+        </li>
+        <li>
+          <a href="#" class="color-white link-md-light link-decor">Услуги</a>
+        </li>
+        <li>
+          <a href="#" class="color-white link-md-light link-decor" data-scrolling-to="true">О нас</a>
+        </li>
+        <li>
+          <a href="#" class="color-white link-md-light link-decor" data-scrolling-to="true">Контакты</a>
+        </li>
+      </ul>
+
+      <div class="header__contacts" data-da=".js-insert-contacts,1023">
+        <a href="tel:+74951531498" class="text-md text-color-primary-inverse link-decor">+7(495) 153-14-98</a>
+        <button class="color-white link-md-medium dashed btn-reset" data-graph-path="call">Перезвоните мне</button>
+      </div>
+
+      <div class="side-menu" data-menu>
+        <div class="side-menu__top space-xl">
+          <button class="btn-reset" data-menu-close>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M23.5425 23.5424L8.45758 8.45746" stroke="#485542" stroke-width="1.2" stroke-linecap="round" />
+              <path d="M23.5424 8.45746L8.45747 23.5424" stroke="#485542" stroke-width="1.2" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+        <div class="space-xxl js-insert-nav"></div>
+        <div class="side-menu__group">
+          <div class="js-insert-contacts"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-reset header__burger" data-menu-button="">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M18 16C18.5522 16.0001 19 16.4478 19 17C19 17.5523 18.5522 18 18 18H6C5.44773 18 5.00002 17.5523 5 17C5 16.4478 5.44772 16 6 16H18ZM18 11C18.5522 11.0001 19 11.4478 19 12C19 12.5523 18.5522 13 18 13H6C5.44773 13 5.00002 12.5523 5 12C5 11.4478 5.44772 11 6 11H18ZM18 6.00005C18.5522 6.00009 19 6.44779 19 7.00005C19 7.55228 18.5522 8 18 8.00005H6C5.44773 8.00005 5.00002 7.55231 5 7.00005C5 6.44776 5.44772 6.00005 6 6.00005H18Z"
+              fill="white" />
+      </svg>
+    </button>
+  </div>
+</header>
+<main>
+  <section class="search-format">
+    <div class="container">
+      <h2 class="heading-md space-xl">Форматы клубного отдыха</h2>
+      <div class="data-range-row space-xl">
+        <div class="date-range" aria-label="Выбор дат бронирования">
+          <label class="date-field">
+            <span class="date-field__label caption-md">Дата заезда</span>
+            <input
+                    id="date-from"
+                    class="date-field__input text-lg-light text-color-secondary"
+                    type="text"
+                    inputmode="none"
+                    autocomplete="off"
+                    placeholder="ДД.ММ.ГГГГ"
+                    aria-label="Дата заезда"
+                    readonly
+            />
+            <svg class="date-field__icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="16"
+                 height="16"
+                 viewBox="0 0 16 16"
+                 fill="none"
+                 aria-hidden="true"
+                 focusable="false">
+              <path d="M11.333 1.20068C11.7747 1.20086 12.1328 1.55877 12.1328 2.00049V2.53369H14C14.4416 2.53392 14.7998 2.89181 14.7998 3.3335V14.0005C14.7996 14.442 14.4415 14.8001 14 14.8003H2C1.55833 14.8003 1.20045 14.4421 1.2002 14.0005V3.3335C1.2002 2.89167 1.55817 2.53369 2 2.53369H3.86621V2.00049C3.86621 1.55866 4.22516 1.20068 4.66699 1.20068C5.10848 1.20109 5.4668 1.55891 5.4668 2.00049V2.53369H10.5322V2.00049C10.5322 1.55874 10.8913 1.20081 11.333 1.20068ZM2.7998 13.1997H13.2002V6.80029H2.7998V13.1997ZM2.7998 5.19971H13.2002V4.1333H11.3496C11.3442 4.13341 11.3385 4.13428 11.333 4.13428C11.3275 4.13428 11.3219 4.13341 11.3164 4.1333H4.68359C4.67807 4.13342 4.67254 4.13427 4.66699 4.13428C4.66158 4.13428 4.65577 4.13341 4.65039 4.1333H2.7998V5.19971Z"
+                    fill="#363636" />
+            </svg>
+          </label>
+
+          <label class="date-field">
+            <span class="date-field__label caption-md">Дата выезда</span>
+            <input
+                    id="date-to"
+                    class="date-field__input text-lg-light text-color-secondary"
+                    type="text"
+                    inputmode="none"
+                    autocomplete="off"
+                    placeholder="ДД.ММ.ГГГГ"
+                    aria-label="Дата выезда"
+                    readonly
+            />
+            <svg class="date-field__icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="16"
+                 height="16"
+                 viewBox="0 0 16 16"
+                 fill="none"
+                 aria-hidden="true"
+                 focusable="false">
+              <path d="M11.333 1.20068C11.7747 1.20086 12.1328 1.55877 12.1328 2.00049V2.53369H14C14.4416 2.53392 14.7998 2.89181 14.7998 3.3335V14.0005C14.7996 14.442 14.4415 14.8001 14 14.8003H2C1.55833 14.8003 1.20045 14.4421 1.2002 14.0005V3.3335C1.2002 2.89167 1.55817 2.53369 2 2.53369H3.86621V2.00049C3.86621 1.55866 4.22516 1.20068 4.66699 1.20068C5.10848 1.20109 5.4668 1.55891 5.4668 2.00049V2.53369H10.5322V2.00049C10.5322 1.55874 10.8913 1.20081 11.333 1.20068ZM2.7998 13.1997H13.2002V6.80029H2.7998V13.1997ZM2.7998 5.19971H13.2002V4.1333H11.3496C11.3442 4.13341 11.3385 4.13428 11.333 4.13428C11.3275 4.13428 11.3219 4.13341 11.3164 4.1333H4.68359C4.67807 4.13342 4.67254 4.13427 4.66699 4.13428C4.66158 4.13428 4.65577 4.13341 4.65039 4.1333H2.7998V5.19971Z"
+                    fill="#363636" />
+            </svg>
+          </label>
+          <!-- один компонент -->
+          <div class="date-field dropdown" data-select>
+            <div class="">
+              <span class="date-field__label caption-md">Количество гостей</span>
+              <input
+                      class="date-field__input text-lg-light text-color-secondary"
+                      type="text"
+                      inputmode="none"
+                      autocomplete="off"
+                      placeholder="Количество гостей"
+                      aria-label="Количество гостей"
+                      data-input
+                      readonly
+              />
+              <svg class="date-field__icon"
+                   xmlns="http://www.w3.org/2000/svg"
+                   width="16"
+                   height="16"
+                   viewBox="0 0 16 16"
+                   fill="none">
+                <path d="M11.4351 6.10107C11.7475 5.78896 12.2536 5.78876 12.5659 6.10107C12.8781 6.4134 12.878 6.91953 12.5659 7.23193L8.56592 11.2319L8.00049 11.7983L7.43506 11.2319L3.43506 7.23193C3.12264 6.91951 3.12264 6.41349 3.43506 6.10107C3.7475 5.78896 4.2536 5.78876 4.56592 6.10107L8.00049 9.53564L11.4351 6.10107Z"
+                      fill="#363636" />
+              </svg>
+            </div>
+            <ul class="options">
+              <li class="option text-lg-light">1</li>
+              <li class="option text-lg-light">2</li>
+              <li class="option text-lg-light">3</li>
+              <li class="option text-lg-light">4</li>
+              <li class="option text-lg-light">5</li>
+              <li class="option text-lg-light">6</li>
+              <li class="option text-lg-light">7</li>
+              <li class="option text-lg-light">8</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn-reset button-filled color-white buttons-lg-medium"
+                data-graph-path="consult"
+                aria-label="консультация">
+          Подобрать
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="footer">
+  <div class="container footer__container">
+    <div class="footer__grid color-white">
+      <div class="footer__grid-group">
+        <div class="footer__grid-item">
+          <p class="space-sm">Форматы клубного отдыха</p>
+          <ul class="list-reset footer__grid-links">
+            <li>
+              <a href="" class="color-white link-md-light">Уикенд в клубном доме «Байрам»</a>
+            </li>
+            <li>
+              <a href="" class="color-white link-md-light">Уют среди гор</a>
+            </li>
+            <li>
+              <a href="" class="color-white link-md-light">Корпоративный заезд</a>
+            </li>
+          </ul>
+        </div>
+        <a href="" class="button-texted link-md-light color-white footer__grid-button">
+          Все
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M5.43469 3.43457C5.74711 3.12215 6.25313 3.12215 6.56555 3.43457L10.5656 7.43457L11.132 8L10.5656 8.56543L6.56555 12.5654C6.25317 12.8778 5.74711 12.8777 5.43469 12.5654C5.12229 12.253 5.12232 11.747 5.43469 11.4346L8.86926 8L5.43469 4.56543C5.12229 4.25303 5.12232 3.74699 5.43469 3.43457Z"
+                  fill="white" />
+          </svg>
+        </a>
+      </div>
+      <div class="footer__grid-group">
+        <div class="footer__grid-item">
+          <p class="space-sm">Услуги</p>
+          <ul class="list-reset footer__grid-links">
+            <li>
+              <a href="" class="color-white link-md-light">Основный услуги</a>
+            </li>
+            <li>
+              <a href="" class="color-white link-md-light">Дополнительные услуги</a>
+            </li>
+          </ul>
+        </div>
+        <a href="" class="button-texted link-md-light color-white footer__grid-button">
+          Все
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M5.43469 3.43457C5.74711 3.12215 6.25313 3.12215 6.56555 3.43457L10.5656 7.43457L11.132 8L10.5656 8.56543L6.56555 12.5654C6.25317 12.8778 5.74711 12.8777 5.43469 12.5654C5.12229 12.253 5.12232 11.747 5.43469 11.4346L8.86926 8L5.43469 4.56543C5.12229 4.25303 5.12232 3.74699 5.43469 3.43457Z"
+                  fill="white" />
+          </svg>
+        </a>
+      </div>
+      <div class="footer__grid-group">
+        <div class="footer__grid-item">
+          <p class="space-sm">Контакты</p>
+          <ul class="list-reset footer__grid-links space-xxs">
+            <li>
+              <a href="mailto:info@test.ru" class="color-white link-md-light">info@test.ru</a>
+            </li>
+            <li>
+              <a href="tel:" class="color-white link-md-light">+7 (495) 153-14-98</a>
+            </li>
+          </ul>
+          <p class="caption-sm text-color-secondary-opacity">с 8:00 до 21:00 (ежедневно)</p>
+        </div>
+        <a href="" class="button-texted link-md-light color-white footer__grid-button">
+          Заказать звонок
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M5.43469 3.43457C5.74711 3.12215 6.25313 3.12215 6.56555 3.43457L10.5656 7.43457L11.132 8L10.5656 8.56543L6.56555 12.5654C6.25317 12.8778 5.74711 12.8777 5.43469 12.5654C5.12229 12.253 5.12232 11.747 5.43469 11.4346L8.86926 8L5.43469 4.56543C5.12229 4.25303 5.12232 3.74699 5.43469 3.43457Z"
+                  fill="white" />
+          </svg>
+        </a>
+      </div>
+      <div class="footer__grid-group">
+        <div class="footer__grid-item">
+          <p class="space-sm">Адрес</p>
+          <ul class="list-reset footer__grid-links">
+            <li class="text-md-regular">
+              Московская область, г. Домодедово,
+            </li>
+            <li class="text-md-regular">
+              Каширское шоссе, 7 Офисы 406, 406(A)
+            </li>
+          </ul>
+        </div>
+        <a href="" class="button-texted link-md-light color-white footer__grid-button">
+          Связаться с нами
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M5.43469 3.43457C5.74711 3.12215 6.25313 3.12215 6.56555 3.43457L10.5656 7.43457L11.132 8L10.5656 8.56543L6.56555 12.5654C6.25317 12.8778 5.74711 12.8777 5.43469 12.5654C5.12229 12.253 5.12232 11.747 5.43469 11.4346L8.86926 8L5.43469 4.56543C5.12229 4.25303 5.12232 3.74699 5.43469 3.43457Z"
+                  fill="white" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer__line">
+      <a href="/">
+        <img src="assets/img/logo-dark.svg" alt="">
+      </a>
+      <ul class="list-reset footer__nav">
+        <li>
+          <a href="" class="footer__nav-link buttons-md-medium text-color-secondary">О нас</a>
+        </li>
+        <li>
+          <a href="" class="footer__nav-link buttons-md-medium text-color-secondary">Контакты</a>
+        </li>
+        <li>
+          <a href="" class="footer__nav-link buttons-md-medium text-color-secondary">Условия бронирования</a>
+        </li>
+        <li>
+          <a href="" class="footer__nav-link buttons-md-medium text-color-secondary">Реквизиты</a>
+        </li>
+      </ul>
+
+      <ul class="footer__social">
+        <li class="">
+          <a href="" class="footer__social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <g clip-path="url(#clip0_303_2581)">
+                <path d="M0 15.36C0 8.1192 0 4.49884 2.24942 2.24942C4.49884 0 8.1192 0 15.36 0H16.64C23.8808 0 27.5011 0 29.7506 2.24942C32 4.49884 32 8.1192 32 15.36V16.64C32 23.8808 32 27.5011 29.7506 29.7506C27.5011 32 23.8808 32 16.64 32H15.36C8.1192 32 4.49884 32 2.24942 29.7506C0 27.5011 0 23.8808 0 16.64V15.36Z"
+                      fill="#363636" />
+                <path d="M17.0267 23.0534C9.73341 23.0534 5.57348 18.0534 5.40015 9.7334H9.05348C9.17348 15.8401 11.8667 18.4267 14.0001 18.9601V9.7334H17.4402V15.0001C19.5469 14.7734 21.7599 12.3734 22.5066 9.7334H25.9467C25.3733 12.9867 22.9733 15.3867 21.2667 16.3734C22.9733 17.1734 25.7068 19.2667 26.7468 23.0534H22.96C22.1467 20.5201 20.1202 18.5601 17.4402 18.2934V23.0534H17.0267Z"
+                      fill="white" />
+              </g>
+              <defs>
+                <clipPath id="clip0_303_2581">
+                  <rect width="32" height="32" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="" class="footer__social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <g clip-path="url(#clip0_303_2584)">
+                <path d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z"
+                      fill="#363636" />
+                <path fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.24261 15.8309C11.9069 13.7988 15.0172 12.459 16.5734 11.8117C21.0168 9.96359 21.9401 9.64255 22.5419 9.63195C22.6743 9.62962 22.9702 9.66242 23.1619 9.81797C23.3238 9.94931 23.3683 10.1267 23.3896 10.2513C23.4109 10.3758 23.4375 10.6595 23.4164 10.8811C23.1756 13.4111 22.1337 19.5507 21.6036 22.3843C21.3794 23.5833 20.9377 23.9853 20.5102 24.0247C19.581 24.1102 18.8755 23.4106 17.9756 22.8207C16.5674 21.8976 15.7718 21.323 14.4049 20.4222C12.8252 19.3812 13.8493 18.8091 14.7495 17.874C14.9851 17.6293 19.079 13.9056 19.1582 13.5678C19.1681 13.5256 19.1773 13.3681 19.0838 13.285C18.9902 13.2018 18.8521 13.2302 18.7525 13.2529C18.6113 13.2849 16.3616 14.7718 12.0036 17.7136C11.3651 18.1521 10.7867 18.3657 10.2685 18.3545C9.69718 18.3422 8.59826 18.0315 7.78133 17.766C6.77933 17.4403 5.98296 17.2681 6.05231 16.7149C6.08842 16.4268 6.48519 16.1321 7.24261 15.8309Z"
+                      fill="white" />
+              </g>
+              <defs>
+                <clipPath id="clip0_303_2584">
+                  <rect width="32" height="32" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer__bottom">
+      <a href="" class="color-white link-md-light">Политика конфиденциальности и условия использования</a>
+      <span class="text-md-regular text-color-secondary-opacity">© 2025 Все права защищены</span>
+    </div>
+  </div>
+</footer>
+<script type="text/javascript" src="assets/js/libs/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="assets/js/libs/accordion/accordion.js"></script>
+<script type="text/javascript" src="assets/js/libs/graph-modal/graph-modal.min.js"></script>
+<script type="text/javascript" src="assets/js/libs/fancybox/fancybox.umd.js"></script>
+<script type="text/javascript" src="assets/js/libs/validate/validate-js.min.js"></script>
+<script type="text/javascript" src="assets/js/libs/dynamic-adaptive/dynamic-adaptive.min.js"></script>
+<script type="text/javascript" src="assets/js/libs/flatpickr/flatpickr.min.js"></script>
+<script type="text/javascript" src="assets/js/libs/flatpickr/ru.js"></script>
+<script type="text/javascript" src="assets/js/libs/flatpickr/rangePlugin.js"></script>
+
+<script type="text/javascript" src="assets/js/swipers.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/dropdown.js"></script>
+
+<script src="assets/js/date-range.js" defer></script>
+</body>
+</html>

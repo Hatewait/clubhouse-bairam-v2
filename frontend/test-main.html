@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Main Page</title>
+    <style>
+        .tour { border: 1px solid #ccc; margin: 10px; padding: 10px; background: #f9f9f9; }
+        .loading { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Test Main Page</h1>
+    <section id="tours" class="tours space-xxxl">
+        <div class="container">
+            <div class="tours__wrap" id="tours-dynamic" data-stagger="tours">
+                <div class="loading">Загрузка форматов...</div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        console.log('Test script loaded');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, starting bundles loader');
+            
+            const container = document.getElementById('tours-dynamic');
+            if (!container) {
+                console.error('Container tours-dynamic not found');
+                return;
+            }
+            
+            console.log('Container found:', container);
+            
+            // Загрузка данных
+            fetch('http://94.228.124.202:8080/api/frontend/bundles')
+                .then(response => {
+                    console.log('Response:', response);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data received:', data);
+                    
+                    if (data.success && data.data.length > 0) {
+                        container.innerHTML = '';
+                        data.data.forEach((bundle, index) => {
+                            const card = document.createElement('div');
+                            card.className = 'tour';
+                            card.innerHTML = '<h2>' + bundle.name + '</h2><p>' + bundle.description + '</p>';
+                            container.appendChild(card);
+                        });
+                        console.log('Bundles rendered successfully');
+                    } else {
+                        container.innerHTML = '<div>No bundles found</div>';
+                        console.log('No bundles found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading bundles:', error);
+                    container.innerHTML = '<div style="color: red;">Error loading bundles: ' + error.message + '</div>';
+                });
+        });
+    </script>
+</body>
+</html>

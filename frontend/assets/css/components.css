@@ -1,0 +1,360 @@
+.swiper-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  width: max-content;
+}
+
+
+.swiper-nav .swiper-button-disabled {
+  background: var(--buttons-disabled, rgba(54, 54, 54, 0.40));
+}
+
+.swiper-nav .swiper-button-disabled svg {
+  opacity: 0.6;
+}
+
+.round-button {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  background: var(--buttons-primary-default, #80011F);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+
+.button-filled {
+  display: flex;
+  padding: var(--space-md, 1.5rem) var(--space-xl, 3rem);
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-xxs, 0.5rem);
+  width: max-content;
+  border-radius: var(--corner-radius-circle, 624999989248rem);
+  background: var(--buttons-primary-default, #80011F);
+  transition: background-color 0.3s ease-in;
+}
+
+.button-filled.disabled {
+  background: var(--buttons-disabled, rgba(54, 54, 54, 0.40));
+  color: var(--text-disabled, rgba(255, 255, 255, 0.60));
+}
+
+
+.button-texted {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  color: var(--buttons-secondary-default);
+  transition: var(--transition);
+}
+
+.button-bordered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xxs);
+  color: var(--buttons-secondary-default);
+  padding: var(--space-md, 1.5rem) var(--space-xl, 3rem);
+  width: max-content;
+  border-radius: var(--corner-radius-circle, 624999989248rem);
+  border: 2px solid var(--buttons-secondary-default, #363636);
+  transition: var(--transition);
+}
+
+.button-bordered_xs {
+  height: 2.875rem;
+  padding: var(--space-xs, 0.75rem) var(--space-md, 1.5rem);
+}
+
+.button-round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background: var(--bg-tertiary, #363636);
+  transition: background-color 0.3s ease-in;;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xxs);
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xxs);
+  padding: var(--space-xxs) var(--space-md);
+  width: max-content;
+  border-radius: var(--corner-radius-circle, 624999989248rem);
+  background: var(--bg-neutral, rgba(220, 220, 220, 0.20));
+  height: max-content;
+}
+
+.tag_opacity {
+  background: var(--bg-primary-40, rgba(255, 255, 255, 0.60));
+}
+
+.play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--buttons-primary-default, #80011F);
+}
+
+.price-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.section-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (max-width: 1719px) {
+  .round-button {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .round-button {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .button-round {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (hover: hover), (-ms-high-contrast: none) {
+  .button-filled:hover {
+    background: var(--buttons-primary-hover);
+  }
+
+  .button-filled:active {
+    background: var(--buttons-primary-pressed);
+  }
+
+  .header__burger:hover {
+    background: var(--buttons-primary-hover);
+  }
+
+  .button-bordered:hover {
+    border-color: var(--buttons-secondary-hover);
+    color: var(--buttons-secondary-hover);
+  }
+
+  .button-bordered:active {
+    border-color: var(--buttons-secondary-pressed);
+    color: var(--buttons-secondary-pressed);
+  }
+
+  .round-button:not(.swiper-button-disabled):hover {
+    background: var(--buttons-primary-hover);
+  }
+
+  .button-texted:hover {
+
+  }
+
+  .button-texted:active {
+
+  }
+}
+
+/* Мозаика: базовая анимация и ступенчатая задержка */
+#mosaic .mosaic-card {
+  opacity: 0;
+  transform: translateY(24px) scale(0.95);
+  transition:
+    opacity 800ms ease-out,
+    transform 800ms ease-out;
+  transition-delay: calc(var(--reveal-i, 0) * 180ms);
+  will-change: opacity, transform;
+}
+
+/* Когда секция во вьюпорте */
+#mosaic.is-in .mosaic-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Уважение prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #mosaic .mosaic-card {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    transition: none !important;
+  }
+}
+
+/* Базовое состояние: скрыто и слегка смещено */
+#tours .tours__wrap > .tour {
+  transform: translateY(14px);
+  transition:
+    transform 800ms ease-out;
+  transition-delay: calc(var(--stagger-i, 0) * 300ms);
+  will-change: transform;
+}
+
+/* Когда секция активирована во вьюпорте */
+#tours.is-in .tours__wrap > .tour {
+  transform: none;
+}
+
+/* Меньше движения — показываем сразу */
+@media (prefers-reduced-motion: reduce) {
+  #tours .tours__wrap > .tour {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Базовое состояние — скрыто и слегка смещено вниз */
+[data-stagger="feature-icons"] > .feature-icons__item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 500ms ease-out,
+    transform 500ms ease-out;
+  transition-delay: calc(var(--stagger-i, 0) * 150ms);
+  will-change: opacity, transform;
+}
+
+/* Когда контейнер активирован наблюдателем */
+[data-stagger="feature-icons"].is-in > .feature-icons__item {
+  opacity: 1;
+  transform: none;
+}
+
+/* Меньше движения — показываем сразу */
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger="feature-icons"] > .feature-icons__item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Ступенчатое появление карточек услуг */
+[data-stagger="services"] > .services-grid__item {
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out;
+  transition-delay: calc(var(--stagger-i, 0) * 180ms);
+  will-change: opacity, transform;
+}
+
+[data-stagger="services"].is-in > .services-grid__item {
+  opacity: 1;
+  transform: none;
+}
+
+/* Меньше движения — показываем сразу */
+@media (prefers-reduced-motion: reduce) {
+  [data-stagger="services"] > .services-grid__item {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    transition: none !important;
+  }
+}
+
+/* ===== Hero reveal (только для хедеров с картинкой) ===== */
+
+.js-hero {
+  /* сначала невидим, чтобы не было дерганий до загрузки бэкграунда */
+  opacity: 0;
+  transition: opacity .6s ease;
+  will-change: opacity;
+}
+
+/* Настройки фонового изображения для js-hero */
+.js-hero .header__video-wrap {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* как только фон загрузился и хедер в вьюпорте */
+.js-hero.is-ready {
+  opacity: 1;
+}
+
+/* элементы контента скрыты и чуть смещены вниз */
+.js-hero .js-hero-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity .5s ease,
+    transform .5s ease;
+  will-change: opacity, transform;
+}
+
+/* по очереди включаем .is-in — элемент проявляется и поднимается */
+.js-hero.is-ready .js-hero-item.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* доступность: если пользователь против анимаций — показываем сразу */
+@media (prefers-reduced-motion: reduce) {
+  .js-hero,
+  .js-hero .js-hero-item {
+    transition: none !important;
+  }
+  .js-hero {
+    opacity: 1 !important;
+  }
+  .js-hero .js-hero-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ===== Video hero reveal (только для хедеров с видео) ===== */
+
+/* элементы контента в видео-хедере скрыты и чуть смещены вниз */
+.js-video-hero .js-hero-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity .6s ease,
+    transform .6s ease;
+  will-change: opacity, transform;
+}
+
+/* по очереди включаем .is-in — элемент проявляется и поднимается */
+.js-video-hero.is-ready .js-hero-item.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* доступность: если пользователь против анимаций — показываем сразу */
+@media (prefers-reduced-motion: reduce) {
+  .js-video-hero .js-hero-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

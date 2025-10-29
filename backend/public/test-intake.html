@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Тест: форма → заявка (формат отдыха + доп.услуги)</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h1 { margin-top: 0; }
+    label { display: block; margin-top: 10px; }
+    input, select, textarea, button { margin-top: 5px; padding: 6px 8px; width: 320px; }
+    textarea { height: 72px; }
+    fieldset { margin-top: 14px; width: 340px; }
+    .row { display: flex; gap: 32px; align-items: flex-start; }
+    .col { min-width: 340px; }
+    pre { background: #000; color: #fff; padding: 10px; white-space: pre-wrap; }
+    .hint { color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Тест: форма → заявка (формат отдыха + доп.опции)</h1>
+
+  <div class="row">
+    <form id="testForm" class="col" novalidate>
+      <label>Имя
+        <input name="name" placeholder="Имя клиента" />
+      </label>
+
+      <label>Телефон
+        <input name="phone" placeholder="+7 (___) ___-__-__" />
+      </label>
+
+      <label>Email
+        <input name="email" placeholder="name@example.com" />
+      </label>
+
+      <label>Формат отдыха (ID)
+        <input name="bundle_id" placeholder="Например: 1" />
+      </label>
+      <div class="hint">Кол-во ночей берётся из формата отдыха автоматически.</div>
+
+      <label>Дата заезда
+        <input name="booking_date" id="dateFrom" placeholder="YYYY-MM-DD" />
+      </label>
+
+      <label>Дата выезда (автоматически)
+        <input id="dateTo" disabled placeholder="Будет рассчитана автоматически" />
+      </label>
+
+      <label>Людей
+        <input name="people_count" type="number" min="1" value="1" />
+      </label>
+
+      <label>Пожелания клиента (комментарий с сайта)
+        <textarea name="comment"></textarea>
+      </label>
+
+      <fieldset>
+        <legend>Дополнительные опции</legend>
+        <div id="addonsBox">Загрузка…</div>
+      </fieldset>
+
+      <button type="submit">Отправить</button>
+    </form>
+
+    <div class="col">
+      <h3>Ответ API</h3>
+      <pre id="apiResponse"></pre>
+    </div>
+  </div>
+
+  <script>
+    const out = document.getElementById('apiResponse');
+    const addonsBox = document.getElementById('addonsBox');
+    const dateFromEl = document.getElementById('dateFrom');
+    const dateToEl = document.getElementById('dateTo');
+    const bundleIdEl = document.querySelector('input[name="bundle_id"]');
+
+    /** Форматирование даты YYYY-MM-DD в локальном времени */
+    const toISO = (d) => {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    /** Пересчёт даты выезда */
+    async function recalcDateTo() {
+      const bundleId = bundleIdEl.value;
+      const from = dateFromEl.value;
+      
+      if (!from || !bundleId) { 
+        dateToEl.value = ''; 
+        return; 
+      }
+
+      try {
+        // Получаем информацию о формате отдыха
+        const res = await fetch(`${location.origin}/api/bundles-active`);
+        const bundles = res.ok ? await res.json() : [];
+        const bundle = bundles.find(b => b.id == bundleId);
+        
+        if (!bundle) {
+          dateToEl.value = 'Формат отдыха не найден';
+          return;
+        }
+
+        const nights = bundle.nights;
+        // Создаем дату в локальном времени, чтобы избежать проблем с часовыми поясами
+        const [year, month, day] = from.split('-').map(Number);
+        const d = new Date(year, month - 1, day);
+        // Дата отъезда = дата заезда + количество ночей
+        console.log('DEBUG: Заезд:', from, 'Ночей:', nights, 'Исходная дата:', d.toISOString());
+        d.setDate(d.getDate() + nights);
+        console.log('DEBUG: Результат:', toISO(d));
+        dateToEl.value = toISO(d);
+      } catch (e) {
+        dateToEl.value = 'Ошибка расчета';
+      }
+    }
+
+    // 1) Подтянуть активные доп.опции и отрисовать чекбоксы
+    async function loadAddons() {
+      addonsBox.textContent = 'Загрузка…';
+      try {
+        const res = await fetch(`${location.origin}/api/addons`);
+        const data = await res.json();
+        if (!data.ok) throw new Error('bad response');
+
+        if (!data.items || !data.items.length) {
+          addonsBox.textContent = 'Нет доступных опций.';
+          return;
+        }
+
+        addonsBox.textContent = '';
+        data.items.forEach(a => {
+          const id = `addon-${a.id}`;
+          const wrap = document.createElement('div');
+
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.id = id;
+          cb.name = 'addon_ids[]';
+          cb.value = String(a.id);
+
+          const lbl = document.createElement('label');
+          lbl.setAttribute('for', id);
+          lbl.textContent = a.price ? `${a.name} (+${a.price}₽)` : a.name;
+
+          wrap.appendChild(cb);
+          wrap.appendChild(lbl);
+          addonsBox.appendChild(wrap);
+        });
+      } catch (e) {
+        addonsBox.textContent = 'Ошибка загрузки списка опций.';
+      }
+    }
+
+    loadAddons();
+
+    // Добавляем обработчики для автоматического расчета дат
+    dateFromEl.addEventListener('change', recalcDateTo);
+    bundleIdEl.addEventListener('change', recalcDateTo);
+
+    // 2) Отправка формы
+    document.getElementById('testForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fd = new FormData(e.currentTarget);
+      const raw = Object.fromEntries(fd.entries());
+
+      // Собираем все отмеченные чекбоксы addon_ids[]
+      const addonIds = Array.from(document.querySelectorAll('input[name="addon_ids[]"]:checked'))
+        .map(el => Number(el.value));
+
+      const payload = {
+        name: (raw.name || '').trim() || null,
+        email: (raw.email || '').trim() || null,
+        phone: (raw.phone || '').trim() || null,
+
+        bundle_id: raw.bundle_id ? Number(raw.bundle_id) : null,
+        booking_date: (raw.booking_date || '').trim() || null,
+        people_count: raw.people_count ? Number(raw.people_count) : 1,
+
+        comment: (raw.comment || '').trim() || null,
+        addon_ids: addonIds,
+      };
+
+      out.textContent = 'Отправка...';
+
+      try {
+        const res = await fetch(`${location.origin}/api/intake`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const text = await res.text();
+        try {
+          const json = JSON.parse(text);
+          out.textContent = (res.ok ? 'OK\n' : `Ошибка ${res.status}\n`) + JSON.stringify(json, null, 2);
+        } catch {
+          out.textContent = (res.ok ? 'OK (non-JSON)\n' : `Ошибка ${res.status}\n`) + text;
+        }
+      } catch (err) {
+        out.textContent = 'Fetch error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

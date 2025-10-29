@@ -1,0 +1,62 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        // Обновляем ограничения в таблице applications
+        Schema::table('applications', function (Blueprint $table) {
+            // Удаляем старое ограничение для service_id
+            $table->dropForeign(['service_id']);
+            
+            // Создаем новое с SET NULL для удаления (так как поле nullable)
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+
+        // Обновляем ограничения в таблице orders
+        Schema::table('orders', function (Blueprint $table) {
+            // Удаляем старое ограничение для service_id
+            $table->dropForeign(['service_id']);
+            
+            // Создаем новое с SET NULL для удаления
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+    }
+
+    public function down(): void
+    {
+        // Восстанавливаем старые ограничения в таблице applications
+        Schema::table('applications', function (Blueprint $table) {
+            $table->dropForeign(['service_id']);
+            
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
+
+        // Восстанавливаем старые ограничения в таблице orders
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign(['service_id']);
+            
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        });
+    }
+};

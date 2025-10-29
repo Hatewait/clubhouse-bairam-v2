@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        // Для SQLite корректнее создавать индексы через raw SQL с IF NOT EXISTS
+        // В MySQL/Postgres это тоже валидно.
+        if (Schema::hasTable('clients')) {
+            DB::statement('CREATE UNIQUE INDEX IF NOT EXISTS clients_email_unique ON clients(email)');
+            DB::statement('CREATE UNIQUE INDEX IF NOT EXISTS clients_phone_unique ON clients(phone)');
+        }
+    }
+
+    public function down(): void
+    {
+        // SQLite поддерживает IF EXISTS для DROP INDEX
+        DB::statement('DROP INDEX IF EXISTS clients_email_unique');
+        DB::statement('DROP INDEX IF EXISTS clients_phone_unique');
+    }
+};

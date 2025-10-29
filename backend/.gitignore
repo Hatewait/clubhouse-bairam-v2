@@ -1,0 +1,35 @@
+# Laravel / PHP
+/vendor/
+/bootstrap/cache/
+/storage/*.key
+/storage/app/public
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+/public/storage
+
+# Env / локальные
+.env
+.env.*
+!.env.example
+.phpunit.result.cache
+.php-cs-fixer.cache
+
+# Node / frontend
+/node_modules/
+npm-debug.log*
+yarn-error.log*
+/public/hot
+/public/build
+/public/mix-manifest.json
+
+# IDE
+/.idea/
+/.vscode/
+/*.code-workspace
+.DS_Store
+
+# SQLite (не коммитим локальную БД)
+database/database.sqlite

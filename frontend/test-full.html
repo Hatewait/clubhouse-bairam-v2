@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Full Bundles</title>
+    <style>
+        .tour { border: 1px solid #ccc; margin: 10px; padding: 10px; }
+        .loading { color: blue; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test Full Bundles</h1>
+    <div id="tours-dynamic">Loading...</div>
+    <script>
+        console.log('Starting test...');
+        
+        // Простая версия загрузчика
+        async function loadBundles() {
+            try {
+                console.log('Fetching bundles...');
+                const response = await fetch('http://94.228.124.202:8080/api/frontend/bundles');
+                console.log('Response:', response);
+                
+                if (!response.ok) {
+                    throw new Error('HTTP error! status: ' + response.status);
+                }
+                
+                const data = await response.json();
+                console.log('Data:', data);
+                
+                const container = document.getElementById('tours-dynamic');
+                if (data.success && data.data.length > 0) {
+                    container.innerHTML = '<div class="tour">Found ' + data.data.length + ' bundles</div>';
+                    data.data.forEach((bundle, index) => {
+                        container.innerHTML += '<div class="tour">' + (index + 1) + '. ' + bundle.name + '</div>';
+                    });
+                } else {
+                    container.innerHTML = '<div class="error">No bundles found</div>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('tours-dynamic').innerHTML = '<div class="error">Error: ' + error.message + '</div>';
+            }
+        }
+        
+        loadBundles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<svg width="75" height="50" viewBox="0 0 75 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="75" height="50" fill="#F3F4F6"/>
+<path d="M20 20H55V30H20V20Z" fill="#D1D5DB"/>
+<path d="M20 35H55V45H20V35Z" fill="#D1D5DB"/>
+<text x="37.5" y="30" font-family="Arial, sans-serif" font-size="8" fill="#6B7280" text-anchor="middle">No Image</text>
+</svg>

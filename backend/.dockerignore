@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# IDE / OS
+.idea
+.vscode
+.DS_Store
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# PHP / Composer
+vendor
+composer.lock
+
+# Laravel cache / logs
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+
+# Env files
+.env
+.env.local
+.env.*.local

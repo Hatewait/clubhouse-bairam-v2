@@ -1,0 +1,94 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Оставляем в services только:
+     *  - id
+     *  - name
+     *  - site_description (текст для сайта)
+     *  - image_path      (путь к картинке)
+     *  - is_active       (показывать на сайте)
+     *  - created_at / updated_at
+     */
+    public function up(): void
+    {
+        // 1) Создаём новую "худую" таблицу
+        Schema::create('services_tmp', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 190);
+            $table->text('site_description')->nullable();
+            $table->string('image_path', 255)->nullable();
+            $table->boolean('is_active')->default(true)->index();
+            $table->timestamps();
+
+            // Индекс для быстрого поиска активных по названию (аналогично прежней идее)
+            $table->index(['name', 'is_active'], 'services_name_is_active_index');
+        });
+
+        // 2) Переносим данные из старой таблицы (берём только нужные поля, остальные игнорируем)
+        // Колонки могут отсутствовать в старых инсталлах — подстрахуемся COALESCE.
+        DB::statement('
+            INSERT INTO services_tmp (id, name, site_description, image_path, is_active, created_at, updated_at)
+            SELECT
+                id,
+                name,
+                COALESCE(site_description, NULL) as site_description,
+                COALESCE(image_path, NULL)       as image_path,
+                COALESCE(is_active, 1)           as is_active,
+                created_at,
+                updated_at
+            FROM services
+        ');
+
+        // 3) Дропаем старую и переименовываем новую в боевую
+        Schema::drop('services');
+        Schema::rename('services_tmp', 'services');
+    }
+
+    /**
+     * Откат: возвращаем старые колонки (service_type, price_type, price, max_people, description, comment).
+     * Значения заполняем NULL / дефолтами — чтобы не падало.
+     */
+    public function down(): void
+    {
+        // Воссоздаём "толстую" таблицу как была раньше
+        Schema::create('services_old', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 190);
+            $table->string('service_type', 50)->nullable();
+            $table->string('price_type', 50)->nullable();
+            $table->integer('price')->nullable();
+            $table->integer('max_people')->nullable();
+            $table->text('description')->nullable();
+            $table->text('comment')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+            $table->text('site_description')->nullable();
+            $table->string('image_path', 255)->nullable();
+
+            // Пример прежнего индексирования (можно скорректировать под нужды)
+            $table->index(['name', 'service_type', 'price_type', 'is_active'], 'services_name_service_type_price_type_is_active_index');
+        });
+
+        // Копируем обратно то, что у нас есть (остальные колонки будут NULL/дефолт)
+        DB::statement('
+            INSERT INTO services_old (
+                id, name, site_description, image_path, is_active, created_at, updated_at,
+                service_type, price_type, price, max_people, description, comment
+            )
+            SELECT
+                id, name, site_description, image_path, is_active, created_at, updated_at,
+                NULL as service_type, NULL as price_type, NULL as price, NULL as max_people, NULL as description, NULL as comment
+            FROM services
+        ');
+
+        Schema::drop('services');
+        Schema::rename('services_old', 'services');
+    }
+};

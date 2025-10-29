@@ -1,0 +1,48 @@
+/* Reveal on scroll animations */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 500ms ease-out,
+    transform 500ms ease-out;
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* варианты анимаций */
+.reveal--fade { 
+  transform: none; 
+}
+
+.reveal--fade-up { 
+  transform: translateY(16px); 
+}
+
+.reveal--fade-down { 
+  transform: translateY(-16px); 
+}
+
+.reveal--fade-left { 
+  transform: translateX(16px); 
+}
+
+.reveal--fade-right { 
+  transform: translateX(-16px); 
+}
+
+/* поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, 
+  .reveal--visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}

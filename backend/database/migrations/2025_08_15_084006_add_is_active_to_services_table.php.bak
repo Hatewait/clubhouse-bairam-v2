@@ -1,0 +1,65 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        // Только для MySQL/MariaDB. Если другая СУБД — адаптируем отдельно.
+        $driver = Schema::getConnection()->getDriverName();
+        if (!in_array($driver, ['mysql'])) {
+            return;
+        }
+
+        // 1) Найдём текущее имя внешнего ключа, если он есть
+        $dbName = DB::getDatabaseName();
+
+        $constraint = DB::table('information_schema.KEY_COLUMN_USAGE')
+            ->select('CONSTRAINT_NAME')
+            ->where('TABLE_SCHEMA', $dbName)
+            ->where('TABLE_NAME', 'applications')
+            ->where('COLUMN_NAME', 'service_id')
+            ->whereNotNull('REFERENCED_TABLE_NAME')
+            ->first();
+
+        // 2) Снимем текущий FK (если есть)
+        if ($constraint?->CONSTRAINT_NAME) {
+            DB::statement('ALTER TABLE `applications` DROP FOREIGN KEY `' . $constraint->CONSTRAINT_NAME . '`;');
+        }
+
+        // На всякий случай — индекс по колонке (если не было)
+        DB::statement('ALTER TABLE `applications` ADD INDEX IF NOT EXISTS `idx_applications_service_id` (`service_id`);');
+
+        // 3) Навесим новый FK с ON DELETE RESTRICT
+        DB::statement(
+            'ALTER TABLE `applications`
+             ADD CONSTRAINT `fk_applications_service_id_restrict`
+             FOREIGN KEY (`service_id`) REFERENCES `services`(`id`)
+             ON DELETE RESTRICT
+             ON UPDATE CASCADE;'
+        );
+    }
+
+    public function down(): void
+    {
+        $driver = Schema::getConnection()->getDriverName();
+        if (!in_array($driver, ['mysql'])) {
+            return;
+        }
+
+        // Снимем наш FK (если есть)
+        DB::statement('ALTER TABLE `applications` DROP FOREIGN KEY IF EXISTS `fk_applications_service_id_restrict`;');
+
+        // (Опционально) можно вернуть поведение по умолчанию, например CASCADE:
+        // DB::statement(
+        //     'ALTER TABLE `applications`
+        //      ADD CONSTRAINT `applications_service_id_foreign`
+        //      FOREIGN KEY (`service_id`) REFERENCES `services`(`id`)
+        //      ON DELETE CASCADE
+        //      ON UPDATE CASCADE;'
+        // );
+    }
+};
