@@ -253,7 +253,7 @@
     data-graph-target="success-consult">
     <div class="graph-modal__content">
       <div class="graph-modal__top space-md">
-        <p class="subtitle-xl">запрос отправлен</p>
+        <p class="subtitle-xl">Запрос отправлен</p>
         <button class="btn-reset graph-modal__close js-modal-close" aria-label="Закрыть модальное окно">
           <svg class="icon-stroke" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none">
@@ -263,7 +263,7 @@
       </div>
 
       <p class="space-xl">Спасибо! Наши специалисты свяжутся с вами в течении одного рабочего дня</p>
-      <button class="button-filled color-white buttons-lg-medium form__button" aria-label="Закрыть модальное окно">Закрыть
+      <button class="button-filled color-white buttons-lg-medium form__button graph-modal__close js-modal-close" aria-label="Закрыть модальное окно">Закрыть
       </button>
     </div>
   </div>
