@@ -306,7 +306,7 @@ render_header([
 
     <section class="faq space-xxxl">
       <div class="container">
-        <h3 class="heading-md space-xl">FAQ</h3>
+        <h3 class="heading-md space-xl">Ответы на вопросы</h3>
         <div class="accordion" id="accordion-1" data-faq-accordion>
           <div class="accordion__item accordion__item_show">
             <div class="accordion__header subtitle-lg-accent">

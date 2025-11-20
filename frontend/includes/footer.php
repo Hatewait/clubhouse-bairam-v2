@@ -139,7 +139,7 @@
       </ul>
     </div>
     <div class="footer__bottom">
-      <a href="" class="color-white link-md-light link-decor">Политика конфиденциальности и условия использования</a>
+      <a href="assets/files/politika_konfidencialnosti.pdf" target="_blank" class="color-white link-md-light link-decor">Политика конфиденциальности и условия использования</a>
       <span class="text-md-regular text-color-secondary-opacity">© 2025 Все права защищены</span>
     </div>
   </div>
@@ -263,7 +263,7 @@
       </div>
 
       <p class="space-xl">Спасибо! Наши специалисты свяжутся с вами в течении одного рабочего дня</p>
-      <button class="button-filled color-white buttons-lg-medium form__button graph-modal__close js-modal-close" aria-label="Закрыть модальное окно">Закрыть
+      <button class="button-filled color-white buttons-lg-medium form__button js-modal-close" aria-label="Закрыть модальное окно">Закрыть
       </button>
     </div>
   </div>
