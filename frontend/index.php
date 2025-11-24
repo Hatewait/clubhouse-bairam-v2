@@ -49,7 +49,7 @@
       <h2 class="visually-hidden">Клубный дом в живописном месте</h2>
       <div class="container">
         <p class="intro__text text-center subtitle-xl">
-          Клубный дом в живописном месте, где <span class="subtitle-xl-accent color-accent">всё пространство и
+          11Клубный дом в живописном месте, где <span class="subtitle-xl-accent color-accent">всё пространство и
             внимание</span> — только вашей компании. Здесь нет случайных соседей: только вы, ваши близкие и настоящая
           природа
         </p>
